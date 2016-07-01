@@ -9,15 +9,16 @@ namespace ToDoList
     public HomeModule()
     {
       Get["/"] = _ => {
-        return View["index.cshtml"];
-      }
+        Contact allContacts = Contact.GetAll();
+        return View["index.cshtml", allContacts];
+      };
       Get["/add_contact"] = _ => {
         return View["contact_form.cshtml"];
-      }
+      };
       Get["/contacts"] = _ => {
         List<Contact> allContacts = Contact.GetAll();
         return View["contacts.cshtml"];
-      }
+      };
       Post["/contact_created"] = _ => {
         Contact newContact = new Contact(
           Request.Form["new-name"],
@@ -26,7 +27,8 @@ namespace ToDoList
           Request.Form["new-address2"]
         );
         return View["contact_created.cshtml"];
-      }
+      };
+      Get
 
 
       // Get["/"] = _ => {

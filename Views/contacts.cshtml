@@ -6,13 +6,13 @@
   <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css'>
 </head>
   <body>
-    <h1>To Do List</h1>
     <ul>
-      @foreach(var task in Model)
+      @foreach(var contact in Model)
       {
-        <li><a href = "/tasks/@task.GetId()">@task.GetDescription()</a></li>
+        <li><a href = "/contacts/@contact.GetId()">@contact.GetName()</a></li>
       }
     </ul>
-    <p><a href="/tasks/new">Add another task</a></p>
+    <p><a href="/add_contact">Add a Contact!</a></p>
+    </form>
   </body>
 </html>
