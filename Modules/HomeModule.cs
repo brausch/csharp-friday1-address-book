@@ -9,15 +9,14 @@ namespace ToDoList
     public HomeModule()
     {
       Get["/"] = _ => {
-        Contact allContacts = Contact.GetAll();
-        return View["index.cshtml", allContacts];
+        return View["index.cshtml"];
       };
       Get["/add_contact"] = _ => {
         return View["contact_form.cshtml"];
       };
       Get["/contacts"] = _ => {
         List<Contact> allContacts = Contact.GetAll();
-        return View["contacts.cshtml"];
+        return View["contacts.cshtml", allContacts];
       };
       Post["/contact_created"] = _ => {
         Contact newContact = new Contact(
@@ -26,33 +25,18 @@ namespace ToDoList
           Request.Form["new-address1"],
           Request.Form["new-address2"]
         );
-        return View["contact_created.cshtml"];
+        return View["contact_created.cshtml", newContact];
       };
-      Get
-
-
-      // Get["/"] = _ => {
-      //   return View["index.cshtml"];
-      // };
-      // Get["/tasks"] = _ => {
-      //   List<Task> allTasks = Task.GetAll();
-      //   return View["tasks.cshtml", allTasks];
-      // };
-      // Get["/tasks/new"] = _ => {
-      //   return View["task_form.cshtml"];
-      // };
-      // Post["/tasks"] = _ => {
-      //   Task newTask = new Task(Request.Form["new-task"]);
-      //   List<Task> allTasks = Task.GetAll();
-      //   return View["tasks.cshtml", allTasks];
-      // };
-      // Post["/tasks_cleared"] = _ => {
-      //   Task.ClearAll();
-      //   return View["tasks_cleared.cshtml"];
-      // };
-      // Get["/tasks/{id}"] = parameters => {
-      //   Task task = Task.Find(parameters.id);
-      //   return View["/task.cshtml", task];
+      Get["/contacts/{id}"] = parameters => {
+        Contact contact = Contact.Find(parameters.id);
+        return View["contact.cshtml", contact];
+      };
+      Get["/contacts_clear_verify"] = _ => {
+        return View["contacts_clear_verify.cshtml"];
+      };
+      Post["contacts_cleared"] = _ => {
+        Contact.ClearAll();
+        return View["contacts_cleared.cshtml"];
       };
     }
   }
